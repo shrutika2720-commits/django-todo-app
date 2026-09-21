@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My To-Do App</title>
+
+    <!-- Aesthetic fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: #f6f0e7;
+            font-family: "DM Sans", sans-serif;
+            color: #403b34;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 30px 15px;
+        }
+
+        /* Main card */
+        .container {
+            width: 100%;
+            max-width: 650px;
+
+            background: #fffaf3;
+            padding: 45px;
+
+            border-radius: 28px;
+
+            box-shadow:
+                0 20px 50px rgba(80, 67, 50, 0.13);
+
+            border: 1px solid #eee3d4;
+        }
+
+        /* Heading */
+        h1 {
+            margin: 0;
+            text-align: center;
+
+            font-family: "Caveat", cursive;
+            font-size: 58px;
+            font-weight: 600;
+
+            color: #4f5f45;
+            letter-spacing: 1px;
+        }
+
+        .subtitle {
+            text-align: center;
+            margin-top: -5px;
+            margin-bottom: 32px;
+
+            font-size: 14px;
+            color: #9a8874;
+            letter-spacing: 0.5px;
+        }
+
+        /* Form */
+        form {
+            display: flex;
+            gap: 10px;
+        }
+
+        input {
+            flex: 1;
+
+            padding: 15px 18px;
+
+            border: 1px solid #e4d9ca;
+            border-radius: 14px;
+
+            background: #fffdf9;
+
+            font-family: "DM Sans", sans-serif;
+            font-size: 15px;
+
+            color: #403b34;
+
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #9aab89;
+            box-shadow: 0 0 0 3px rgba(154, 171, 137, 0.15);
+        }
+
+        input::placeholder {
+            color: #b2a598;
+        }
+
+        /* Add button */
+        button {
+            padding: 14px 22px;
+
+            border: none;
+            border-radius: 14px;
+
+            background: #718363;
+            color: white;
+
+            font-family: "DM Sans", sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+        button:hover {
+            background: #5f7153;
+            transform: translateY(-1px);
+        }
+
+        /* Task heading */
+        h2 {
+            margin-top: 38px;
+            margin-bottom: 16px;
+
+            font-family: "Caveat", cursive;
+            font-size: 34px;
+            font-weight: 600;
+
+            color: #625646;
+        }
+
+        /* Task card */
+        .task {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            background: #fdf8f0;
+
+            padding: 15px 17px;
+            margin-top: 11px;
+
+            border-radius: 15px;
+
+            border: 1px solid #eee2d3;
+
+            transition: 0.2s;
+        }
+
+        .task:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 18px rgba(80, 67, 50, 0.08);
+        }
+
+        /* Task text */
+        .task-title {
+            font-size: 15px;
+            color: #514a41;
+            font-weight: 500;
+        }
+
+        .completed {
+            text-decoration: line-through;
+            color: #aaa095;
+        }
+
+        /* Buttons */
+        .actions {
+            display: flex;
+            gap: 14px;
+            margin-left: 15px;
+        }
+
+        .actions a {
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .complete {
+            color: #718363;
+        }
+
+        .delete {
+            color: #c7837b;
+        }
+
+        .complete:hover,
+        .delete:hover {
+            text-decoration: underline;
+        }
+
+        /* Empty message */
+        .empty {
+            text-align: center;
+            color: #a79b8d;
+            font-size: 14px;
+            padding: 20px;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+
+            margin-top: 32px;
+
+            font-family: "Caveat", cursive;
+            font-size: 21px;
+
+            color: #a18d78;
+        }
+
+        /* Mobile */
+        @media (max-width: 600px) {
+
+            .container {
+                padding: 30px 22px;
+            }
+
+            h1 {
+                font-size: 48px;
+            }
+
+            form {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+            }
+
+            .task {
+                align-items: flex-start;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .actions {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>♡ My To-Do App</h1>
+
+    <div class="subtitle">
+        small steps make big progress ♡
+    </div>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <input
+            type="text"
+            name="title"
+            placeholder="What needs to be done?"
+            required
+        >
+
+        <button type="submit">
+            Add Task
+        </button>
+    </form>
+
+    <h2>My Tasks</h2>
+
+    {% for todo in todos %}
+
+        <div class="task">
+
+            <span class="task-title {% if todo.completed %}completed{% endif %}">
+                {{ todo.title }}
+            </span>
+
+            <div class="actions">
+
+                <a
+                    class="complete"
+                    href="{% url 'complete' todo.id %}"
+                >
+                    {% if todo.completed %}
+                        ↶ Undo
+                    {% else %}
+                        ✓ Complete
+                    {% endif %}
+                </a>
+
+                <a
+                    class="delete"
+                    href="{% url 'delete' todo.id %}"
+                >
+                    Delete
+                </a>
+
+            </div>
+
+        </div>
+
+    {% empty %}
+
+        <p class="empty">
+            No tasks yet ♡
+        </p>
+
+    {% endfor %}
+
+    <div class="footer">
+        better days ahead ♡
+    </div>
+
+</div>
+
+</body>
+</html>
