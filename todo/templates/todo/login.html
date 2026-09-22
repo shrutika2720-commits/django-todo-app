@@ -73,6 +73,32 @@
         button:hover {
             background: #5c4033;
         }
+
+        /* Error message */
+        .error {
+            text-align: center;
+            color: #b45f5f;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        /* Register section */
+        .register-text {
+            text-align: center;
+            margin-top: 25px;
+            color: #8a7568;
+            font-size: 14px;
+        }
+
+        .register-text a {
+            color: #6f4e37;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .register-text a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 
@@ -82,12 +108,20 @@
 
     <h1>♡ Welcome Back ♡</h1>
 
-    <p class="subtitle">Login to your To-Do App</p>
+    <p class="subtitle">
+        Login to your To-Do App
+    </p>
+
 
     <form method="post">
+
         {% csrf_token %}
 
-        <label for="id_username">Username</label>
+
+        <label for="id_username">
+            Username
+        </label>
+
         <input
             type="text"
             name="username"
@@ -96,7 +130,11 @@
             required
         >
 
-        <label for="id_password">Password</label>
+
+        <label for="id_password">
+            Password
+        </label>
+
         <input
             type="password"
             name="password"
@@ -105,8 +143,36 @@
             required
         >
 
-        <button type="submit">Login</button>
+
+        <button type="submit">
+            Login
+        </button>
+
     </form>
+
+
+    <!-- Error message -->
+
+    {% if error %}
+
+        <div class="error">
+            {{ error }}
+        </div>
+
+    {% endif %}
+
+
+    <!-- Register option for new users -->
+
+    <p class="register-text">
+
+        New here?
+
+        <a href="{% url 'register' %}">
+            Register
+        </a>
+
+    </p>
 
 </div>
 
