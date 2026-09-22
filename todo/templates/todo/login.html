@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login - My To-Do App</title>
+
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+            background: #f7f3ee;
+        }
+
+        .login-box {
+            width: 360px;
+            padding: 40px;
+            background: white;
+            border-radius: 22px;
+            box-shadow: 0 10px 35px rgba(92, 64, 51, 0.15);
+        }
+
+        h1 {
+            text-align: center;
+            color: #5c4033;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #8a7568;
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            color: #5c4033;
+            font-weight: bold;
+            margin: 16px 0 7px;
+        }
+
+        input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 13px;
+            border: 1.5px solid #c8b6a6;
+            border-radius: 10px;
+            font-size: 15px;
+            outline: none;
+            background: #fffdfb;
+        }
+
+        input:focus {
+            border-color: #795548;
+            box-shadow: 0 0 0 3px #eee4dc;
+        }
+
+        button {
+            width: 100%;
+            padding: 13px;
+            margin-top: 25px;
+            border: none;
+            border-radius: 10px;
+            background: #6f4e37;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #5c4033;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="login-box">
+
+    <h1>♡ Welcome Back ♡</h1>
+
+    <p class="subtitle">Login to your To-Do App</p>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <label for="id_username">Username</label>
+        <input
+            type="text"
+            name="username"
+            id="id_username"
+            placeholder="Enter your username"
+            required
+        >
+
+        <label for="id_password">Password</label>
+        <input
+            type="password"
+            name="password"
+            id="id_password"
+            placeholder="Enter your password"
+            required
+        >
+
+        <button type="submit">Login</button>
+    </form>
+
+</div>
+
+</body>
+</html>

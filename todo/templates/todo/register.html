@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Account - My To-Do App</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            padding: 30px 15px;
+            font-family: Arial, sans-serif;
+            background: #f7f3ee;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .register-box {
+            width: 100%;
+            max-width: 400px;
+            padding: 35px;
+            background: white;
+            border-radius: 22px;
+            box-shadow: 0 10px 35px rgba(92, 64, 51, 0.15);
+        }
+
+        h1 {
+            text-align: center;
+            color: #5c4033;
+            margin: 0 0 8px 0;
+            font-size: 28px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #8a7568;
+            margin: 0 0 25px 0;
+        }
+
+        label {
+            display: block;
+            color: #5c4033;
+            font-weight: bold;
+            margin: 15px 0 7px 0;
+        }
+
+        input {
+            display: block;
+            width: 100%;
+            padding: 13px;
+            border: 1.5px solid #c8b6a6;
+            border-radius: 10px;
+            font-size: 15px;
+            outline: none;
+            background: #fffdfb;
+        }
+
+        input:focus {
+            border-color: #795548;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 13px;
+            margin-top: 25px;
+            border: none;
+            border-radius: 10px;
+            background: #6f4e37;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #5c4033;
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+            color: #8a7568;
+        }
+
+        .login-link a {
+            color: #6f4e37;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .error {
+            color: #a94442;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="register-box">
+
+        <h1>♡ Create Account ♡</h1>
+
+        <p class="subtitle">Join your To-Do App</p>
+
+        {% if error %}
+            <div class="error">{{ error }}</div>
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+
+            <label for="id_username">Username</label>
+
+            <input
+                type="text"
+                name="username"
+                id="id_username"
+                placeholder="Enter your username"
+                required
+            >
+
+            <label for="id_password">Password</label>
+
+            <input
+                type="password"
+                name="password"
+                id="id_password"
+                placeholder="Create a password"
+                required
+            >
+
+            <label for="id_confirm_password">Confirm Password</label>
+
+            <input
+                type="password"
+                name="confirm_password"
+                id="id_confirm_password"
+                placeholder="Re-enter your password"
+                required
+            >
+
+            <button type="submit">Create Account</button>
+
+        </form>
+
+        <div class="login-link">
+            Already have an account?
+            <a href="{% url 'login' %}">Login</a>
+        </div>
+
+    </div>
+
+</body>
+</html>
